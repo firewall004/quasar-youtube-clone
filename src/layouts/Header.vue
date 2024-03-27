@@ -2,12 +2,15 @@
 	<q-header class="header" reveal>
 		<q-toolbar class="toolbar">
 			<q-btn flat dense round icon="menu" @click="toggleDrawer" class="menu-btn" />
-			<q-btn flat dense round class="logo-btn" @click="navigateToHome">
-				<div>
-					<youtube-icon />
-				</div>
-			</q-btn>
-			<q-space />
+
+			<q-toolbar-title>
+				<q-btn flat dense round class="logo-btn" @click="navigateToHome">
+					<div>
+						<youtube-icon />
+					</div>
+				</q-btn>
+			</q-toolbar-title>
+
 			<div class="search-container">
 				<q-input outlined dense placeholder="Search" class="search-input" v-model="searchQuery" clearable>
 					<template v-slot:before>
@@ -56,10 +59,6 @@ const navigateToHome = () => {
 
 .toolbar {
 	padding: 0 16px;
-}
-
-.logo-btn {
-	padding-right: 0;
 }
 
 .search-container {

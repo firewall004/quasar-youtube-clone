@@ -1,5 +1,5 @@
 <template>
-	<q-drawer v-model="drawerOpen">
+	<q-drawer v-model="drawerOpen" side="left" bordered>
 		<q-list>
 			<q-item v-for="(item, index) in drawerItems" :key="index">
 				<q-item-section>

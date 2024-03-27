@@ -1,5 +1,5 @@
 <template>
-	<q-layout view="hHh lpR fFf">
+	<q-layout view="lHh lpR fFf">
 		<Header />
 		<Drawer />
 		<Page />
