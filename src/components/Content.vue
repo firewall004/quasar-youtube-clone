@@ -4,8 +4,8 @@
 			<div class="q-pa-md">
 				<div class="q-col-gutter-md">
 					<div class="row">
-						<div v-for="(video, index) in videos" :key="index" class="col-md-3 q-mb-md">
-							<q-card flat bordered class="rounded-borders">
+						<div v-for="(video, index) in videos" :key="index" class="col-md-3 col-sm-6 q-mb-md">
+							<q-card flat bordered class="vid-card">
 								<q-img :src="video.thumbnail" :alt="video.title" class="fixed-height" />
 								<q-card-section class="title-section">
 									<q-card-title>{{ video.title }}</q-card-title>
@@ -24,20 +24,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-
-interface Video {
-	title: string;
-	description: string;
-	thumbnail: string;
-}
+import { fetchVideos } from '../api/index';
+import type { Video } from '../types/index';
 
 const videos = ref<Video[]>([]);
 
 onMounted(async () => {
 	try {
-		const response = await fetch('/data/yt_videos.json');
-		const data = await response.json();
-		videos.value = data;
+		videos.value = await fetchVideos();
 	} catch (error) {
 		console.error('Error fetching data:', error);
 	}
@@ -51,7 +45,7 @@ onMounted(async () => {
 }
 
 .fixed-height {
-	height: 200px;
+	height: 180px;
 }
 
 .title-section,
@@ -61,5 +55,11 @@ onMounted(async () => {
 
 .description-section {
 	opacity: 0.6;
+}
+
+.vid-card {
+	border-radius: 15px;
+	max-width: 300px;
+	margin: 0 auto;
 }
 </style>

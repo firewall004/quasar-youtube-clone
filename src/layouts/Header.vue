@@ -3,7 +3,9 @@
 		<q-toolbar class="toolbar">
 			<q-btn flat dense round icon="menu" @click="toggleDrawer" class="menu-btn" />
 			<q-btn flat dense round class="logo-btn" @click="navigateToHome">
-				<youtube-icon />
+				<div>
+					<youtube-icon />
+				</div>
 			</q-btn>
 			<q-space />
 			<div class="search-container">
@@ -25,14 +27,15 @@
 </template>
 
 <script setup lang="ts">
+
 import { useRouter } from 'vue-router';
 import { useDrawerStore } from '../store';
+import { ref } from 'vue';
 
 import YoutubeIcon from '../components/icons/Youtube.vue';
 import UserIcon from '../components/icons/User.vue';
-import { ref } from 'vue';
 
-const searchQuery = ref('');
+const searchQuery = ref<string>('');
 
 const toggleDrawer = () => {
 	useDrawerStore().toggleDrawer();
@@ -41,10 +44,6 @@ const toggleDrawer = () => {
 const navigateToHome = () => {
 	const router = useRouter();
 	router.push('/');
-};
-
-const search = () => {
-	console.log("SEARCH")
 };
 
 </script>
