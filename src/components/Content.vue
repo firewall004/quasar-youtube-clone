@@ -23,50 +23,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const videos = ref([
-	{
-		title: 'Video 1',
-		description: 'Description for video 1',
-		thumbnail: 'https://cdn.quasar.dev/img/parallax1.jpg',
-	},
-	{
-		title: 'Video 2',
-		description: 'Description for video 2',
-		thumbnail: 'https://cdn.quasar.dev/img/parallax2.jpg',
-	},
-	{
-		title: 'Video 3',
-		description: 'Description for video 3',
-		thumbnail: 'https://cdn.quasar.dev/img/mountains.jpg',
-	},
-	{
-		title: 'Video 4',
-		description: 'Description for video 4',
-		thumbnail: 'https://cdn.quasar.dev/img/quasar.jpg',
-	},
-	{
-		title: 'Video 5',
-		description: 'Description for video 1',
-		thumbnail: 'https://cdn.quasar.dev/img/parallax1.jpg',
-	},
-	{
-		title: 'Video 6',
-		description: 'Description for video 2',
-		thumbnail: 'https://cdn.quasar.dev/img/parallax2.jpg',
-	},
-	{
-		title: 'Video 7',
-		description: 'Description for video 3',
-		thumbnail: 'https://cdn.quasar.dev/img/mountains.jpg',
-	},
-	{
-		title: 'Video 8',
-		description: 'Description for video 4',
-		thumbnail: 'https://cdn.quasar.dev/img/quasar.jpg',
-	},
-]);
+interface Video {
+	title: string;
+	description: string;
+	thumbnail: string;
+}
+
+const videos = ref<Video[]>([]);
+
+onMounted(async () => {
+	try {
+		const response = await fetch('/data/yt_videos.json');
+		const data = await response.json();
+		videos.value = data;
+	} catch (error) {
+		console.error('Error fetching data:', error);
+	}
+});
+
 </script>
 
 <style scoped>
@@ -74,20 +50,16 @@ const videos = ref([
 	padding: 20px;
 }
 
-.video-card {
-	margin-bottom: 20px;
-}
-
 .fixed-height {
 	height: 200px;
 }
 
-.title-section {
+.title-section,
+.description-section {
 	padding: 10px;
 }
 
 .description-section {
-	padding: 10px;
 	opacity: 0.6;
 }
 </style>
